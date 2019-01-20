@@ -7,9 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpRefreshFragment;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.VideoListFragmentContract;
+import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
 import com.youzi.youziwallpaper.app.ui.adapter.ItemDecoration.GridItemDecoration;
 import com.youzi.youziwallpaper.app.ui.adapter.VideoListAdapter;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
@@ -47,6 +49,12 @@ public class VideoListFragment extends BaseMvpRefreshFragment<VideoListFragmentC
         recy.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         adapter = new VideoListAdapter();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                VideoDetailActivity.open(getContext());
+            }
+        });
         recy.setAdapter(adapter);
 
         int g = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP

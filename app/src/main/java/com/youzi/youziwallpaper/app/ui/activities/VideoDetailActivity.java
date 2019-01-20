@@ -29,6 +29,7 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        setTitle(" ");
         //设置背景颜色
         getToolbar().getView().setBackgroundColor(Color.TRANSPARENT);
         //设置toolbar上方的padding
