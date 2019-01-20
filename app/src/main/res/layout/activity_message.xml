@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".app.ui.activities.MessageActivity">
+
+    <TextView
+        android:id="@+id/tv_follow"
+        style="@style/ItemTextStyle"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text=" 关注" />
+
+    <TextView
+        android:id="@+id/tv_zan"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text=" 赞" />
+
+    <TextView
+        android:id="@+id/tv_at"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text=" @我的" />
+
+    <TextView
+        android:id="@+id/tv_comment"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text=" 评论" />
+
+    <TextView
+        android:id="@+id/tv_system_message"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text=" 系统消息" />
+
+
+</LinearLayout>

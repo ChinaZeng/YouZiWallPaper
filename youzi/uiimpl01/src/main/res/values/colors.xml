@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="uiimpl_color_retry_bgcolor">#666666</color>
+    <color name="uiimpl_color_retry_textcolor">#333333</color>
+
+</resources>

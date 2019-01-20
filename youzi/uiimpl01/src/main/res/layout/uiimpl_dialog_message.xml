@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_parent_message"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:alpha="0.8"
+    android:background="@drawable/uiimpl_bg_dialog_message"
+    android:minWidth="80dp"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+
+    <ImageView
+        android:id="@+id/iv_icon_message"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/uiimpl_ic_info"/>
+
+    <TextView
+        android:id="@+id/tv_text_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/iv_icon_message"
+        android:gravity="center"
+        android:maxWidth="200dp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        tools:text="加载失败"/>
+
+</RelativeLayout>

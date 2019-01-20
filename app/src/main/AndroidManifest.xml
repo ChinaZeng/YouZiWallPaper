@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.youzi.youziwallpaper">
+
+    <application
+        android:name=".YouZiWallpaperApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/LightAppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".app.ui.activities.LoginActivity"
+            android:label="登陆"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.ui.activities.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".app.ui.activities.MessageActivity"
+            android:label="消息"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.ui.activities.EditPersonInfoActivity"
+            android:label="编辑资料"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.ui.activities.SettingActivity"
+            android:label="设置"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.ui.activities.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.ui.activities.SortVideoListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".app.ui.activities.VideoDetailActivity"
+            android:screenOrientation="portrait"
+            />
+    </application>
+
+</manifest>

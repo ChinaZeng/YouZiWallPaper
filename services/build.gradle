@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.buildVersion["compileSdkVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.buildVersion["minSdkVersion"]
+        targetSdkVersion rootProject.ext.buildVersion["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    flavorDimensions "api"
+    productFlavors {
+        //开发环境
+        Develop {
+            dimension "api"
+            buildConfigField("String", "HOST", "\"http://dev-creditloanapp.zhph.lan/CreditLoanWeb/\"")
+            buildConfigField("String", "FILE_HOST", "\"http://dev-commonservices.zhph.lan/zhph_commonServices/webservice/hdfs/download\"")
+        }
+
+        //线上版本使用
+        Online {
+            dimension "api"
+            buildConfigField("String", "HOST", "\"http://creditloanapp.htphfinance.com/CreditLoanWeb/\"")
+            buildConfigField("String", "FILE_HOST", "\"http://commonservices.zhphfinance.com/zhph_commonServices/webservice/hdfs/download\"")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api rootProject.ext.libraries["base"]
+     //dagger2
+    annotationProcessor rootProject.ext.libraries["dagger2Compiler"]
+    annotationProcessor rootProject.ext.libraries["dagger2AndroidCompiler"]
+
+}

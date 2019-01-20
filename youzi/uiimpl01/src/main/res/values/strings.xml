@@ -1,0 +1,12 @@
+<resources>
+    <string name="uiimpl_app_name">uiimpl01</string>
+    <string name="uiimpl_loading_state_loading">正在加载&#8230;</string>
+    <string name="uiimpl_loading_state_load_failed">数据加载失败啦</string>
+    <string name="uiimpl_loading_state_load_failed_btn_retry">重新加载</string>
+    <string name="uiimpl_loading_state_load_no_data">还没有内容哦</string>
+    <string name="uiimpl_loading_state_load_no_network">您的网络开小差啦!</string>
+    <string name="uiimpl_loading_state_load_need_login">登录后可查看内容哦</string>
+    <string name="uiimpl_loading_state_load_need_login_btn_login">立即登录</string>
+    <string name="uiimpl_loading_state_load_need_login_btn_open_net">打开网络</string>
+    <string name="uiimpl_loading_state_load_refresh">点击刷新</string>
+</resources>

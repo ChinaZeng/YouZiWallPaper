@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="common_id_system_manager" type="id"/>
+    <item name="common_id_proxy_content" type="id"/>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="statusBarTextColorDarkMode" format="boolean" />
+    <attr name="toolbarHeight" format="dimension|reference" />
+    <declare-styleable name="MultiFunctionEditText">
+        <attr name="letterSpaceEnable" format="boolean" />
+        <attr name="clearButtonEnable" format="boolean" />
+        <attr name="togglePasswordEnable" format="boolean" />
+        <attr name="letterSpaceRule" format="string" />
+        <attr name="clearButtonIcon" format="reference" />
+        <attr name="togglePasswordVisibleIcon" format="reference" />
+        <attr name="togglePasswordHideIcon" format="reference" />
+        <attr name="iconPadding" format="dimension" />
+        <attr name="startZero" format="boolean" />
+        <attr name="onlyTextBold" format="boolean" />
+        <attr name="bottomLineEnable" format="boolean"/>
+        <attr name="bottomLineColor" format="color"/>
+        <attr name="tipsColor" format="color"/>
+        <attr name="tipsTextSize" format="dimension"/>
+        <attr name="tipsMarginTop" format="dimension"/>
+        <attr name="tipsMarginBottom" format="dimension"/>
+        <attr name="hintTitleEnable" format="boolean"/>
+        <attr name="hintTitle" format="string"/>
+        <attr name="hintTitleShowType" format="enum">
+            <enum name="alwaysShow" value="0"/>
+            <enum name="whenFillShow" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.buildVersion["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.buildVersion["buildToolsVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.buildVersion["minSdkVersion"]
+        targetSdkVersion rootProject.ext.buildVersion["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation rootProject.ext.libraries["junit"]
+    androidTestImplementation rootProject.ext.libraries["testRunner"]
+    androidTestImplementation rootProject.ext.libraries["testEspresso"]
+    //basic
+    api rootProject.ext.libraries["common"]
+    api rootProject.ext.libraries["uiimpl01"]
+    //dagger2
+    api rootProject.ext.libraries["dagger2"]
+    api rootProject.ext.libraries["dagger2Android"]
+    api rootProject.ext.libraries["dagger2AndroidSupport"]
+    annotationProcessor rootProject.ext.libraries["dagger2Compiler"]
+    annotationProcessor rootProject.ext.libraries["dagger2AndroidCompiler"]
+    //butterKnife
+    api rootProject.ext.libraries["butterKnife"]
+    annotationProcessor rootProject.ext.libraries["butterKnifeCompiler"]
+    //RxJava
+    api rootProject.ext.libraries["rxJava"]
+    api rootProject.ext.libraries["rxAndroid"]
+    api rootProject.ext.libraries["rxLifecycle"]
+    api rootProject.ext.libraries["rxLifecycleAndroid"]
+    api rootProject.ext.libraries["rxPermission"]
+    //okHttp
+    api rootProject.ext.libraries["okHttp"]
+    api rootProject.ext.libraries["okHttpLog"]
+    //retrofit
+    api rootProject.ext.libraries["retrofit"]
+    api rootProject.ext.libraries["gsonConverter"]
+    api rootProject.ext.libraries["rxjavaAdapter"]
+    //json
+    api rootProject.ext.libraries["gson"]
+    //log
+    api rootProject.ext.libraries["logger"]
+    //eventBus
+    api rootProject.ext.libraries["eventBus"]
+    //recyclerAdapter
+    api rootProject.ext.libraries["recyclerAdapter"]
+    //image loader
+    api rootProject.ext.libraries["glide"]
+    annotationProcessor rootProject.ext.libraries["glideCompiler"]
+
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1352_43618_sharewithdownload_withoutGame_obfs_20180918_120327.jar')
+}

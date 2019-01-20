@@ -1,0 +1,101 @@
+package com.youzi.framework.common.ui;
+
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
+import android.view.View;
+
+import com.youzi.framework.common.ui.loading.ILoadingViewInterceptor;
+
+/**
+ * Created by LuoHaifeng on 2017/3/21.
+ */
+
+public interface ILoadingHelper {
+    enum State {
+        LOADING,
+        EMPTY,
+        NO_NETWORK,
+        ERROR,
+        NO_LOGIN,
+        CUSTOM_VIEW,
+        NORMAL
+    }
+
+    //加载中状态
+    ILoadingHelper showLoading();
+
+    ILoadingHelper setLoadingMessage(@StringRes int loadingMessage);
+
+    ILoadingHelper setLoadingMessage(String loadingMessage);
+
+    ILoadingHelper setLoadingIcon(@DrawableRes int loadingIcon);
+
+    //空数据状态
+    ILoadingHelper showEmpty();
+
+    ILoadingHelper setEmptyMessage(@StringRes int emptyMessage);
+
+    ILoadingHelper setEmptyMessage(String emptyMessage);
+
+    ILoadingHelper setEmptyIcon(@DrawableRes int emptyIcon);
+
+    //没有网络状态
+    ILoadingHelper showNoNetwork();
+
+    ILoadingHelper setNoNetworkMessage(@StringRes int emptyMessage);
+
+    ILoadingHelper setNoNetworkMessage(String emptyMessage);
+
+    ILoadingHelper setNoNetworkIcon(@DrawableRes int emptyIcon);
+
+    //加载失败状态
+    ILoadingHelper showError();
+
+    ILoadingHelper setErrorMessage(@StringRes int errorMessage);
+
+    ILoadingHelper setErrorMessage(String errorMessage);
+
+    ILoadingHelper setErrorIcon(@DrawableRes int errorIcon);
+
+    ILoadingHelper setRetryListener(OnRetryListener retryListener);
+
+    //需要登录状态
+    ILoadingHelper showLogin();
+
+    ILoadingHelper setLoginMessage(@StringRes int loginMessage);
+
+    ILoadingHelper setLoginMessage(String loginMessage);
+
+    ILoadingHelper setLoginIcon(@DrawableRes int loginIcon);
+
+    ILoadingHelper setLoginListener(OnLoginListener loginListener);
+
+    //显示自定义View
+    ILoadingHelper showView(View view);
+
+    //正常状态
+    ILoadingHelper restore();
+
+    //View样式拦截器
+    ILoadingHelper setViewInterceptor(ILoadingViewInterceptor interceptor);
+
+    State getState();
+
+    ILoadingHelper showState(State state);
+
+    View getCurrentView();
+
+    ILoadingHelper setStateChangeListener(OnStateChangeListener listener);
+
+    interface OnRetryListener {
+        void onRetry(ILoadingHelper loadingHelper);
+    }
+
+    interface OnLoginListener {
+        void login(ILoadingHelper loadingHelper);
+    }
+
+    interface OnStateChangeListener {
+        void onStateChanged(ILoadingHelper loadingHelper, State state, View newView);
+    }
+}

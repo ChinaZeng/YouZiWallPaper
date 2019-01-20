@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.buildVersion["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.buildVersion["buildToolsVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.buildVersion["minSdkVersion"]
+        targetSdkVersion rootProject.ext.buildVersion["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation rootProject.ext.libraries["junit"]
+    androidTestImplementation rootProject.ext.libraries["testRunner"]
+    androidTestImplementation rootProject.ext.libraries["testEspresso"]
+
+    compileOnly rootProject.ext.libraries["common"]
+    implementation rootProject.ext.libraries["cardView"]
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.4-7'
+    implementation 'com.airbnb.android:lottie:2.5.4'
+}
+
+

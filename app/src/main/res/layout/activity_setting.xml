@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".app.ui.activities.SettingActivity">
+
+
+    <TextView
+        android:id="@+id/tv_account"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="24dp"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text="账号" />
+
+    <TextView
+        android:id="@+id/tv_edit_person_info"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="40dp"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text="编辑资料" />
+
+    <LinearLayout
+        android:id="@+id/ll_clean_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/ItemTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="清理缓存" />
+
+        <TextView
+            android:id="@+id/tv_cache_num"
+            style="@style/ItemTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+            tools:text="13.0M" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_appeal"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="40dp"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text="申诉与反馈" />
+
+
+    <TextView
+        android:id="@+id/tv_about"
+        style="@style/ItemTextStyle"
+        android:layout_marginTop="40dp"
+        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+        android:text="关于" />
+
+
+</LinearLayout>
