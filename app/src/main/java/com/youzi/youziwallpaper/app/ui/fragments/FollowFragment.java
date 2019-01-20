@@ -44,13 +44,13 @@ public class FollowFragment extends BaseMvpFragment<FollowFragmentContract.Prese
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recy.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new FollowAdapter();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 VideoDetailActivity.open(getContext());
             }
         });
-        adapter = new FollowAdapter();
         recy.setAdapter(adapter);
 
         testData();
