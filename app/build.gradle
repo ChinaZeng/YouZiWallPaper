@@ -16,9 +16,33 @@ android {
             abiFilters 'armeabi-v7a'//, 'x86', 'armeabi', 'x86_64','arm64-v8a'
         }
     }
+
+    signingConfigs {
+        signingConfig {
+            keyAlias 'youzi'
+            keyPassword 'youzi123456'
+            storeFile file('youzi.jks')
+            storePassword 'youzi123456'
+        }
+
+    }
+
+
+    //别名:youzi
+    //密码:youzi123456
     buildTypes {
-        release {
+        debug {
+            signingConfig signingConfigs.signingConfig
+            debuggable true
             minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.signingConfig
+            debuggable false
+            minifyEnabled true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
