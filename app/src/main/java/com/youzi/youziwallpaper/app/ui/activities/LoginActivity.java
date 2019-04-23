@@ -1,11 +1,13 @@
 package com.youzi.youziwallpaper.app.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tencent.connect.UserInfo;
 import com.tencent.connect.common.Constants;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
@@ -14,9 +16,9 @@ import com.youzi.framework.base.BaseMvpActivity;
 import com.youzi.framework.common.util.log.LogUtil;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.LoginActivityContract;
-import com.youzi.youziwallpaper.app.mvp.presenters.LoginActivityPresenter;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -52,7 +54,7 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
                 if (mTencent == null)
                     mTencent = Tencent.createInstance("101573968", this);
 
-                mTencent.login(this, "all", iUiListener);
+                mTencent.login(this, "all", qqLoginListener);
                 break;
             case R.id.iv_wx:
                 toMain();
@@ -65,19 +67,17 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
 
 
     @Override
-    public void toMain(){
+    public void toMain() {
         startActivity(MainActivity.class);
         finishPage();
     }
 
 
-
-
-
-    BaseUiListener iUiListener = new BaseUiListener() {
+    BaseUiListener qqLoginListener = new BaseUiListener() {
         @Override
         protected void doComplete(JSONObject values) {
             initOpenidAndToken(values);
+            updateUserInfo();
         }
     };
 
@@ -91,8 +91,59 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
                 mTencent.setAccessToken(token, expires);
                 mTencent.setOpenId(openId);
             }
-            toMain();
+
         } catch (Exception e) {
+        }
+    }
+
+    private void updateUserInfo() {
+        if (mTencent != null && mTencent.isSessionValid()) {
+            IUiListener listener = new IUiListener() {
+
+                @Override
+                public void onError(UiError e) {
+
+                }
+
+                @Override
+                public void onComplete(final Object response) {
+                    /*
+                    {
+                        "ret":0,
+                            "msg":"",
+                            "is_lost":0,
+                            "nickname":"⭕_⭕",
+                            "gender":"男",
+                            "province":"四川",
+                            "city":"成都",
+                            "year":"1899",
+                            "constellation":"",
+                            "figureurl":"http://qzapp.qlogo.cn/qzapp/101573968/A892446BF4192DF48E9650E82BEEA736/30",
+                            "figureurl_1":"http://qzapp.qlogo.cn/qzapp/101573968/A892446BF4192DF48E9650E82BEEA736/50",
+                            "figureurl_2":"http://qzapp.qlogo.cn/qzapp/101573968/A892446BF4192DF48E9650E82BEEA736/100",
+                            "figureurl_qq_1":"http://thirdqq.qlogo.cn/g?b=oidb&k=VbCKAEJ83Wv7Yxm7Tqa5Pg&s=40",
+                            "figureurl_qq_2":"http://thirdqq.qlogo.cn/g?b=oidb&k=VbCKAEJ83Wv7Yxm7Tqa5Pg&s=100",
+                            "figureurl_qq":"http://thirdqq.qlogo.cn/g?b=oidb&k=VbCKAEJ83Wv7Yxm7Tqa5Pg&s=140",
+                            "figureurl_type":"1",
+                            "is_yellow_vip":"0",
+                            "vip":"0",
+                            "yellow_vip_level":"0",
+                            "level":"0",
+                            "is_yellow_year_vip":"0"
+                    }
+                    */
+                    LogUtil.d(response.toString());
+                    toMain();
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            };
+            UserInfo mInfo = new UserInfo(this, mTencent.getQQToken());
+            mInfo.getUserInfo(listener);
+
         }
     }
 
@@ -129,14 +180,15 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
         @Override
         public void onCancel() {
             LogUtil.d("取消登录");
-           provideToast().showError("取消登录");
+            provideToast().showError("取消登录");
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_LOGIN ||
                 requestCode == Constants.REQUEST_APPBAR) {
-            Tencent.onActivityResultData(requestCode,resultCode,data,iUiListener);
+            Tencent.onActivityResultData(requestCode, resultCode, data, qqLoginListener);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
