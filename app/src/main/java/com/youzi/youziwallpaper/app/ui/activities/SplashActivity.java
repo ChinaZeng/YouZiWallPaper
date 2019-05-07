@@ -31,5 +31,6 @@ public class SplashActivity extends BaseMvpActivity<SplashActivityContract.Prese
     @Override
     public void toMain() {
         startActivity(MainActivity.class);
+        finish();
     }
 }

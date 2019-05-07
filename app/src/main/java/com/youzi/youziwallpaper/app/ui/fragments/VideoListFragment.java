@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpRefreshFragment;
+import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.VideoListFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
@@ -59,16 +60,21 @@ public class VideoListFragment extends BaseMvpRefreshFragment<VideoListFragmentC
 
         int g = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP
                 , 6, getResources().getDisplayMetrics());
-        recy.addItemDecoration(new GridItemDecoration(g,g));
+        recy.addItemDecoration(new GridItemDecoration(g, g));
 
-        testData();
+        provideRefreshLayout().startRefresh();
     }
 
-    private void testData() {
-        List<String> test = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            test.add("nihao" + i);
-        }
-        adapter.replaceData(test);
+
+    @Override
+    public void showList(List<ThemeBean> list) {
+        adapter.replaceData(list);
+        provideRefreshLayout().refreshCompleted();
+    }
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        mPresenter.getData();
     }
 }

@@ -18,15 +18,13 @@ android {
         //开发环境
         Develop {
             dimension "api"
-            buildConfigField("String", "HOST", "\"http://dev-creditloanapp.zhph.lan/CreditLoanWeb/\"")
-            buildConfigField("String", "FILE_HOST", "\"http://dev-commonservices.zhph.lan/zhph_commonServices/webservice/hdfs/download\"")
+            buildConfigField("String", "HOST", "\"http://47.107.99.30:8080/\"")
         }
 
         //线上版本使用
         Online {
             dimension "api"
-            buildConfigField("String", "HOST", "\"http://creditloanapp.htphfinance.com/CreditLoanWeb/\"")
-            buildConfigField("String", "FILE_HOST", "\"http://commonservices.zhphfinance.com/zhph_commonServices/webservice/hdfs/download\"")
+            buildConfigField("String", "HOST", "\"http://47.107.99.30:8080/\"")
         }
     }
 

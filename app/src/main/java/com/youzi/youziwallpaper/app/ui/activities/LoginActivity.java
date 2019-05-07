@@ -1,8 +1,6 @@
 package com.youzi.youziwallpaper.app.ui.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.LoginActivityContract;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -83,6 +80,7 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
 
     private void initOpenidAndToken(JSONObject jsonObject) {
         try {
+            LogUtil.d(jsonObject.toString());
             String token = jsonObject.getString(Constants.PARAM_ACCESS_TOKEN);
             String expires = jsonObject.getString(Constants.PARAM_EXPIRES_IN);
             String openId = jsonObject.getString(Constants.PARAM_OPEN_ID);
@@ -107,33 +105,7 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
 
                 @Override
                 public void onComplete(final Object response) {
-                    /*
-                    {
-                        "ret":0,
-                            "msg":"",
-                            "is_lost":0,
-                            "nickname":"⭕_⭕",
-                            "gender":"男",
-                            "province":"四川",
-                            "city":"成都",
-                            "year":"1899",
-                            "constellation":"",
-                            "figureurl":"http://qzapp.qlogo.cn/qzapp/101573968/A892446BF4192DF48E9650E82BEEA736/30",
-                            "figureurl_1":"http://qzapp.qlogo.cn/qzapp/101573968/A892446BF4192DF48E9650E82BEEA736/50",
-                            "figureurl_2":"http://qzapp.qlogo.cn/qzapp/101573968/A892446BF4192DF48E9650E82BEEA736/100",
-                            "figureurl_qq_1":"http://thirdqq.qlogo.cn/g?b=oidb&k=VbCKAEJ83Wv7Yxm7Tqa5Pg&s=40",
-                            "figureurl_qq_2":"http://thirdqq.qlogo.cn/g?b=oidb&k=VbCKAEJ83Wv7Yxm7Tqa5Pg&s=100",
-                            "figureurl_qq":"http://thirdqq.qlogo.cn/g?b=oidb&k=VbCKAEJ83Wv7Yxm7Tqa5Pg&s=140",
-                            "figureurl_type":"1",
-                            "is_yellow_vip":"0",
-                            "vip":"0",
-                            "yellow_vip_level":"0",
-                            "level":"0",
-                            "is_yellow_year_vip":"0"
-                    }
-                    */
-                    LogUtil.d(response.toString());
-                    toMain();
+                    mPresenter.saveQQLoginInfo(response, mTencent.getOpenId());
                 }
 
                 @Override

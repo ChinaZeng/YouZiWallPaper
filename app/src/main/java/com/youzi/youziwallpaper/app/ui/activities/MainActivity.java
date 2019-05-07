@@ -1,5 +1,7 @@
 package com.youzi.youziwallpaper.app.ui.activities;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.youzi.framework.base.BaseMvpActivity;
 import com.youzi.framework.common.util.utils.FragmentHelper;
 import com.youzi.framework.common.util.utils.FragmentSwitchUtil;
@@ -19,6 +22,7 @@ import com.youzi.youziwallpaper.di.DaggerAppComponent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseMvpActivity<MainActivityContract.Presenter> implements MainActivityContract.View {
     @BindView(R.id.line_find)
@@ -50,9 +54,22 @@ public class MainActivity extends BaseMvpActivity<MainActivityContract.Presenter
         getToolbar().setVisible(View.GONE);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+
+        new RxPermissions(this)
+                .request(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})
+                .subscribe(new Consumer<Boolean>() {
+                    @Override
+                    public void accept(Boolean aBoolean) throws Exception {
+                        if (aBoolean) {
+
+                        }
+                    }
+                });
+
         switchFragment(0);
     }
 

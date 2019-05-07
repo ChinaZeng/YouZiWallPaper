@@ -10,12 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.youzi.framework.base.BaseMvpFragment;
+import com.youzi.framework.common.util.login.LoginManager;
+import com.youzi.framework.common.util.login.event.LoginEvent;
 import com.youzi.youziwallpaper.R;
+import com.youzi.youziwallpaper.app.bean.UserInfoBean;
 import com.youzi.youziwallpaper.app.mvp.contracts.FindFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.LoginActivity;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -52,6 +60,7 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
         return inflate(R.layout.fragment_find);
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -61,6 +70,9 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
         MyPagerAdapter adapter = new MyPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
         tabLayout.setViewPager(viewPager);
+
+        showInfo();
+
     }
 
     @OnClick({R.id.iv_header, R.id.iv_search})
@@ -72,6 +84,22 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
             case R.id.iv_search:
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void login(LoginEvent event) {
+        showInfo();
+    }
+
+    void showInfo(){
+
+        if(!LoginManager.getInstance().isLogin()){
+            return;
+        }
+
+        UserInfoBean loginResult = LoginManager.getInstance().getLastLoginResult();
+        if (loginResult != null )
+            Glide.with(this).load(loginResult.headerUrl).into(ivHeader);
     }
 
 
@@ -95,5 +123,18 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
         public Fragment getItem(int position) {
             return mFragments.get(position);
         }
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
