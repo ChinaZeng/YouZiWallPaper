@@ -12,6 +12,10 @@ public class ListResp<T> {
     private int total;
     private List<T> rows;
 
+    public int getTotal() {
+        return total;
+    }
+
     public List<T> getRows() {
         return rows;
     }

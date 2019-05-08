@@ -1,8 +1,10 @@
 package com.youzi.framework.base;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.adapter.AdapterToRefreshLayoutWrapper;
 import com.youzi.framework.base.mvp.IBasePagingView;
 import com.youzi.framework.base.mvp.IBasePresenter;

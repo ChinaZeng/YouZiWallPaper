@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpFragment;
+import com.youzi.framework.base.BaseMvpRefreshFragment;
+import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.FollowFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
@@ -19,11 +21,13 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class FollowFragment extends BaseMvpFragment<FollowFragmentContract.Presenter> implements FollowFragmentContract.View {
+public class FollowFragment extends
+        BaseMvpRefreshFragment<FollowFragmentContract.Presenter>
+        implements FollowFragmentContract.View, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recy)
     RecyclerView recy;
     private FollowAdapter adapter;
-
+    int page = 1;
 
     public static FollowFragment newInstance() {
         return new FollowFragment();
@@ -34,11 +38,11 @@ public class FollowFragment extends BaseMvpFragment<FollowFragmentContract.Prese
         DaggerAppComponent.create().inject(this);
     }
 
+
     @Override
-    protected View provideLayoutView() {
+    protected View provideRefreshContent() {
         return inflate(R.layout.fragment_follow);
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -52,17 +56,39 @@ public class FollowFragment extends BaseMvpFragment<FollowFragmentContract.Prese
             }
         });
         recy.setAdapter(adapter);
+        adapter.setEnableLoadMore(true);
+        adapter.setOnLoadMoreListener(this, recy);
 
-        testData();
+        provideRefreshLayout().startRefresh();
     }
 
-    private void testData() {
-        List<String> test = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            test.add("nihao" + i);
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        page = 1;
+        mPresenter.getData(page);
+    }
+
+
+    @Override
+    public void showList(int total,int page, List<ThemeBean> list) {
+        if (page == 1) {
+            adapter.replaceData(list);
+        } else {
+            adapter.addData(list);
         }
-        adapter.replaceData(test);
+
+        provideRefreshLayout().refreshCompleted();
+        adapter.loadMoreComplete();
+        if(total<=adapter.getData().size()){
+            adapter.loadMoreEnd(true);
+        }
+
     }
 
-
+    @Override
+    public void onLoadMoreRequested() {
+        page++;
+        mPresenter.getData(page);
+    }
 }

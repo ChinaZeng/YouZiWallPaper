@@ -1,6 +1,5 @@
 package com.youzi.youziwallpaper.app.ui.adapter;
 
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,7 +47,7 @@ public class VideoListAdapter extends BaseQuickAdapter<ThemeBean, BaseViewHolder
                     .load(item.getDetail().getImgList().get(0).getImg_url())
                     .into(helper.<ImageView>getView(R.id.iv_video));
         }
-        // TODO: 2019/5/7 头像字段
+        // TODO: 2019/5/7 头像字段  话题字段缺失
 
 
     }

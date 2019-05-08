@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.youzi.framework.base.BaseMvpActivity;
+import com.youzi.framework.common.util.login.event.LoginEvent;
 import com.youzi.framework.common.util.utils.FragmentHelper;
 import com.youzi.framework.common.util.utils.FragmentSwitchUtil;
 import com.youzi.youziwallpaper.R;
@@ -19,6 +20,10 @@ import com.youzi.youziwallpaper.app.ui.fragments.AdFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.FindFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.SortFragment;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,8 +56,11 @@ public class MainActivity extends BaseMvpActivity<MainActivityContract.Presenter
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         getToolbar().setVisible(View.GONE);
     }
+
+
 
     @SuppressLint("CheckResult")
     @Override
@@ -71,6 +79,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityContract.Presenter
                 });
 
         switchFragment(0);
+        mPresenter.checkToken();
     }
 
     @OnClick({R.id.rl_find, R.id.rl_category, R.id.iv_bottom_center})
@@ -114,4 +123,17 @@ public class MainActivity extends BaseMvpActivity<MainActivityContract.Presenter
             lineCategory.setVisibility(View.VISIBLE);
         }
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void login(LoginEvent event) {
+        mPresenter.checkToken();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

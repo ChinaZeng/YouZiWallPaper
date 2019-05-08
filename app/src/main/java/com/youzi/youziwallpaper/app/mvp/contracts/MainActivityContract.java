@@ -10,5 +10,6 @@ public interface MainActivityContract {
 
     interface Presenter extends IBasePresenter<View> {
 
+        void checkToken();
     }
 }
