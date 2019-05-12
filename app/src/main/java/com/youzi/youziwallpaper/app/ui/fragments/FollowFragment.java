@@ -9,12 +9,17 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpFragment;
 import com.youzi.framework.base.BaseMvpRefreshFragment;
+import com.youzi.framework.common.util.login.event.LoginEvent;
 import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.FollowFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
 import com.youzi.youziwallpaper.app.ui.adapter.FollowAdapter;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +57,19 @@ public class FollowFragment extends
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                VideoDetailActivity.open(getContext());
+                ThemeBean bean = (ThemeBean) adapter.getData().get(position);
+                VideoDetailActivity.open(getContext(),bean);
             }
         });
         recy.setAdapter(adapter);
         adapter.setEnableLoadMore(true);
         adapter.setOnLoadMoreListener(this, recy);
+        provideRefreshLayout().startRefresh();
+    }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void login(LoginEvent event) {
         provideRefreshLayout().startRefresh();
     }
 
@@ -87,8 +98,27 @@ public class FollowFragment extends
     }
 
     @Override
+    public void loadError(int page) {
+        provideRefreshLayout().refreshCompleted();
+        adapter.loadMoreComplete();
+    }
+
+    @Override
     public void onLoadMoreRequested() {
         page++;
         mPresenter.getData(page);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

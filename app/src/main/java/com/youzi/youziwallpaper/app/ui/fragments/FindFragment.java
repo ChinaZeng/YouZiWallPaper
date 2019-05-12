@@ -6,9 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -29,7 +27,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter> implements FindFragmentContract.View {
@@ -64,7 +61,7 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFragments.add(VideoListFragment.newInstance());
+        mFragments.add(RecommendFragment.newInstance());
         mFragments.add(FollowFragment.newInstance());
 
         MyPagerAdapter adapter = new MyPagerAdapter(getChildFragmentManager());
@@ -79,7 +76,7 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_header:
-                startActivity(LoginActivity.class);
+                LoginActivity.open(getContext(),getClass().getName());
                 break;
             case R.id.iv_search:
                 break;

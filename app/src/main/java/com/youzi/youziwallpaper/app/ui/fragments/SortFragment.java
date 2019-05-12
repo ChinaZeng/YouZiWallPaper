@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpRefreshFragment;
+import com.youzi.service.api.resp.SortBean;
+import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.SortFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.SortVideoListActivity;
@@ -19,11 +21,14 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SortFragment extends BaseMvpRefreshFragment<SortFragmentContract.Presenter> implements SortFragmentContract.View {
+public class SortFragment extends
+        BaseMvpRefreshFragment<SortFragmentContract.Presenter>
+        implements SortFragmentContract.View {
     @BindView(R.id.recy)
     RecyclerView recy;
 
     private SortAdapter sortAdapter;
+
 
     public static SortFragment newInstance() {
         return new SortFragment();
@@ -53,14 +58,28 @@ public class SortFragment extends BaseMvpRefreshFragment<SortFragmentContract.Pr
         });
         recy.setAdapter(sortAdapter);
 
-        testData();
+        sortAdapter.setEnableLoadMore(true);
+        provideRefreshLayout().startRefresh();
     }
 
-    private void testData() {
-        List<String> test = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            test.add("nihao" + i);
-        }
-        sortAdapter.replaceData(test);
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        mPresenter.getData();
     }
+
+
+    @Override
+    public void showList(List<SortBean> list) {
+        sortAdapter.replaceData(list);
+        provideRefreshLayout().refreshCompleted();
+
+    }
+
+    @Override
+    public void showError() {
+        provideRefreshLayout().refreshCompleted();
+    }
+
 }

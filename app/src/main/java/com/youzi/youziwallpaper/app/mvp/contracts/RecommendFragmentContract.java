@@ -6,9 +6,10 @@ import com.youzi.service.api.resp.ThemeBean;
 
 import java.util.List;
 
-public interface VideoListFragmentContract {
+public interface RecommendFragmentContract {
     interface View extends IBaseView {
         void showList(List<ThemeBean> list);
+        void showError();
     }
 
     interface Presenter extends IBasePresenter<View> {

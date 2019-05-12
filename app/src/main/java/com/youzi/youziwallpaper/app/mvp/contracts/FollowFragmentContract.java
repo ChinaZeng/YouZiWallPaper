@@ -9,6 +9,8 @@ import java.util.List;
 public interface FollowFragmentContract {
     interface View extends IBaseView {
         void showList(int total,int page,List<ThemeBean> list);
+
+        void loadError(int page);
     }
 
     interface Presenter extends IBasePresenter<View> {

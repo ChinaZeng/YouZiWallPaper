@@ -1,32 +1,36 @@
 package com.youzi.youziwallpaper.app.ui.adapter;
 
-import android.graphics.Rect;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.youzi.service.api.resp.SortBean;
+import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
 import com.youzi.youziwallpaper.app.ui.adapter.ItemDecoration.LinearLayoutItemDecoration;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zzw on 2019/1/20.
  * 描述:
  */
-public class SortAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class SortAdapter extends BaseQuickAdapter<SortBean, BaseViewHolder> {
     public SortAdapter() {
         super(R.layout.item_sort, new ArrayList<>());
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, SortBean item) {
+        // TODO: 2019/5/12  头像 数量 热门名称
+        helper.setText(R.id.tv_name_hint, item.label);
+
         RecyclerView recyclerView = helper.getView(R.id.sort_recy);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext,
                 LinearLayoutManager.HORIZONTAL, false
@@ -40,7 +44,8 @@ public class SortAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    VideoDetailActivity.open(mContext);
+                    ThemeBean bean = (ThemeBean) adapter.getData().get(position);
+                    VideoDetailActivity.open(mContext, bean);
                 }
             });
             recyclerView.setAdapter(adapter);
@@ -51,27 +56,26 @@ public class SortAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             ));
             recyclerView.setTag(adapter);
         }
-        adapter.replaceData(testData());
-    }
-
-    private List<String> testData() {
-        List<String> test = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            test.add("nihao" + i);
-        }
-        return test;
+        adapter.replaceData(item.list == null ? new ArrayList<>() : item.list);
     }
 
 
-    private class SortImgAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+    private class SortImgAdapter extends BaseQuickAdapter<ThemeBean, BaseViewHolder> {
 
         SortImgAdapter() {
             super(R.layout.item_sort_img, new ArrayList<>());
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, String item) {
-            helper.setImageResource(R.id.iv_img, R.mipmap.ic_launcher);
+        protected void convert(BaseViewHolder helper, ThemeBean item) {
+            ThemeBean.DetailBean detailBean = item.getDetail();
+            if (detailBean != null && detailBean.getImgList() != null
+                    && detailBean.getImgList().size() > 0) {
+                Glide.with(helper.itemView.getContext())
+                        .load(detailBean.getImgList().get(0).getImg_url())
+                        .into(helper.<ImageView>getView(R.id.iv_img));
+            }
+
         }
     }
 }

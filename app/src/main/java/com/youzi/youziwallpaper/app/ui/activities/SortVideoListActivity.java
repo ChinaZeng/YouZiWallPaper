@@ -50,7 +50,7 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                VideoDetailActivity.open(SortVideoListActivity.this);
+//                VideoDetailActivity.open(SortVideoListActivity.this);
             }
         });
         recy.setAdapter(adapter);

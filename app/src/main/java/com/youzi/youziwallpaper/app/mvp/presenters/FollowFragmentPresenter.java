@@ -40,11 +40,16 @@ public class FollowFragmentPresenter extends BasePresenter<FollowFragmentContrac
                 .compose(new SchedulersIoMainTransformer<>())
                 .compose(mView.bindLifecycle())
                 .compose(ResponseTransformer.create())
-//                .compose(ListResponseTransformer.create())
                 .subscribe(new RespObserver<ListResp<ThemeBean>>() {
                     @Override
                     public void onSuccess(ListResp<ThemeBean> data) {
                         mView.showList(data.getTotal(), page, data.getRows());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.loadError(page);
                     }
                 });
     }

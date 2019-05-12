@@ -1,6 +1,9 @@
 package com.youzi.youziwallpaper.app.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +35,26 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
 
     private Tencent mTencent;
 
+
+    private static final String FROM_KEY = "from_key";
+
+    private String from;
+
+    /**
+     * @param context
+     * @param fromClass
+     */
+    public static void open(Context context, String fromClass) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra(FROM_KEY, fromClass);
+        context.startActivity(intent);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        from = getIntent().getStringExtra(FROM_KEY);
+    }
 
     @Override
     protected void daggerInject() {

@@ -55,7 +55,7 @@ public class Resp<T> {
     }
 
     public boolean isSuccess() {
-        return code == CODE_200 || code == CODE_20001 || code == CODE_0;
+        return code == CODE_200 ;
     }
 
     public CodeException getException() {

@@ -7,19 +7,19 @@ import com.youzi.service.api.apis.ClientApi;
 import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.service.api.transformers.ListResponseTransformer;
 import com.youzi.service.api.transformers.ResponseTransformer;
-import com.youzi.youziwallpaper.app.mvp.contracts.VideoListFragmentContract;
+import com.youzi.youziwallpaper.app.mvp.contracts.RecommendFragmentContract;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class VideoListFragmentPresenter extends BasePresenter<VideoListFragmentContract.View> implements VideoListFragmentContract.Presenter {
+public class RecommendFragmentPresenter extends BasePresenter<RecommendFragmentContract.View> implements RecommendFragmentContract.Presenter {
 
     @Inject
     ClientApi mClientApi;
 
     @Inject
-    public VideoListFragmentPresenter() {
+    public RecommendFragmentPresenter() {
     }
 
 
@@ -34,6 +34,12 @@ public class VideoListFragmentPresenter extends BasePresenter<VideoListFragmentC
                     @Override
                     public void onSuccess(List<ThemeBean> data) {
                         mView.showList(data);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        mView.showError();
                     }
                 });
     }

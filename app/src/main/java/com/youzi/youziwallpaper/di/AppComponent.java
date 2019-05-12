@@ -14,7 +14,7 @@ import com.youzi.youziwallpaper.app.ui.fragments.AdFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.FindFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.FollowFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.SortFragment;
-import com.youzi.youziwallpaper.app.ui.fragments.VideoListFragment;
+import com.youzi.youziwallpaper.app.ui.fragments.RecommendFragment;
 
 import javax.inject.Singleton;
 
@@ -50,7 +50,7 @@ public interface AppComponent {
 
     void inject(FindFragment fragment);
 
-    void inject(VideoListFragment fragment);
+    void inject(RecommendFragment fragment);
 
     void inject(SortFragment fragment);
 

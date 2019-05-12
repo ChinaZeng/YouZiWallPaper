@@ -2,8 +2,10 @@ package com.youzi.service.api.apis;
 
 import com.youzi.service.api.resp.ListResp;
 import com.youzi.service.api.resp.Resp;
+import com.youzi.service.api.resp.SortBean;
 import com.youzi.service.api.resp.ThemeBean;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -36,7 +38,7 @@ public interface ClientApi {
     );
 
     @GET("/app/bac_/getClassifyLst")
-    Observable<Resp<ListResp<ThemeBean>>> getClassifyLst();
+    Observable<Resp<List<SortBean>>> getClassifyLst();
 
     @GET("/app/checkToken")
     Observable<Resp<Object>> checkToken(@Query("token") String token);

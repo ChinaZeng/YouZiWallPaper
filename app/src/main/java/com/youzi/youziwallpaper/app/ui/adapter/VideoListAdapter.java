@@ -40,11 +40,11 @@ public class VideoListAdapter extends BaseQuickAdapter<ThemeBean, BaseViewHolder
 
         helper.setText(R.id.tv_nick_name, item.getTheme_upload_personnel())
                 .setText(R.id.tv_video_des, item.getTheme_title());
-
-        if (item.getDetail() != null && item.getDetail().getImgList() != null
-                && item.getDetail().getImgList().size() > 0) {
+        ThemeBean.DetailBean detailBean = item.getDetail();
+        if (detailBean != null && detailBean.getImgList() != null
+                && detailBean.getImgList().size() > 0) {
             Glide.with(helper.itemView.getContext())
-                    .load(item.getDetail().getImgList().get(0).getImg_url())
+                    .load(detailBean.getImgList().get(0).getImg_url())
                     .into(helper.<ImageView>getView(R.id.iv_video));
         }
         // TODO: 2019/5/7 头像字段  话题字段缺失

@@ -22,16 +22,28 @@ public class FollowAdapter extends BaseQuickAdapter<ThemeBean, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, ThemeBean item) {
-        //todo 头像字段缺失  话题字段缺失   喜欢 评论  分享数量
+        //todo 头像字段缺失
         helper.setText(R.id.tv_name, item.getTheme_upload_personnel())
                 .setText(R.id.tv_date, item.getTheme_update_time())
-                .setText(R.id.tv_des, item.getTheme_title());
-        if (item.getDetail() != null && item.getDetail().getImgList() != null
-                && item.getDetail().getImgList().size() > 0) {
+                .setText(R.id.tv_des, item.getTheme_title())
+                .setText(R.id.tv_huati, "@" + item.getSpecies());
+
+        ThemeBean.DetailBean detailBean = item.getDetail();
+        if (detailBean == null) {
+            return;
+        }
+
+        helper.setText(R.id.tv_like, detailBean.getFollowNum())
+                .setText(R.id.tv_down, detailBean.getThemeDownloadNumber())
+                .setText(R.id.tv_collect, detailBean.getCollectNum());
+
+        if (detailBean.getImgList() != null
+                && detailBean.getImgList().size() > 0) {
             Glide.with(helper.itemView.getContext())
-                    .load(item.getDetail().getImgList().get(0).getImg_url())
+                    .load(detailBean.getImgList().get(0).getImg_url())
                     .into(helper.<ImageView>getView(R.id.iv_video));
         }
+
 
     }
 }
