@@ -45,13 +45,13 @@ public interface ClientApi {
 
     @GET("/app/bac_/insertDataCollection")
     Observable<Resp<Object>> insertDataCollection(
-            @Query("Token") String token,
+            @Query("token") String token,
             @Query("home_theme_id") String homeThemeId
     );
 
     @GET("/app/bac_/insertDataFollow")
     Observable<Resp<Object>> insertDataFollow(
-            @Query("Token") String token,
+            @Query("token") String token,
             @Query("home_theme_id") String homeThemeId
     );
 
