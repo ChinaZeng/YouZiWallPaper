@@ -10,7 +10,7 @@
         android:layout_width="93dp"
         android:layout_height="93dp"
         android:layout_marginTop="90dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/icon_splash" />
 
     <TextView
         android:id="@+id/tv_txt"
@@ -45,7 +45,7 @@
             android:layout_width="61dp"
             android:layout_height="61dp"
             android:layout_marginTop="30dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@mipmap/icon_qq" />
 
         <Space
             android:layout_width="0dp"
@@ -57,7 +57,7 @@
             android:layout_width="61dp"
             android:layout_height="61dp"
             android:layout_marginTop="30dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@mipmap/icon_wx" />
 
         <Space
             android:layout_width="0dp"
@@ -70,7 +70,7 @@
             android:layout_width="61dp"
             android:layout_height="61dp"
             android:layout_marginTop="30dp"
-            android:src="@mipmap/ic_launcher_round" />
+            android:src="@mipmap/icon_wb" />
 
     </LinearLayout>
 
