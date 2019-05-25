@@ -71,9 +71,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.libraries["services"]
     implementation rootProject.ext.libraries["multidex"]
+    implementation rootProject.ext.libraries["player"]
     implementation rootProject.ext.libraries["circleImageView"]
     implementation rootProject.ext.libraries["flycoTabLayout"]
     implementation rootProject.ext.libraries["cardView"]
+
 
     //dagger2
     annotationProcessor rootProject.ext.libraries["dagger2Compiler"]

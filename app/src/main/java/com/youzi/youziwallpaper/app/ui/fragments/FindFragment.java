@@ -96,7 +96,9 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
 
         UserInfoBean loginResult = LoginManager.getInstance().getLastLoginResult();
         if (loginResult != null )
-            Glide.with(this).load(loginResult.headerUrl).into(ivHeader);
+            Glide.with(this)
+                    .load(loginResult.headerUrl)
+                    .into(ivHeader);
     }
 
 

@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/player" />
             <option value="$PROJECT_DIR$/services" />
             <option value="$PROJECT_DIR$/youzi" />
             <option value="$PROJECT_DIR$/youzi/baselibrary" />

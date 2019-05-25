@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/tv_follow"
         style="@style/ItemTextStyle"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/ic_message_follow"
         android:drawableRight="@drawable/ic_chevron_right_black_24dp"
         android:text=" 关注" />
 
@@ -19,7 +19,7 @@
         android:id="@+id/tv_zan"
         style="@style/ItemTextStyle"
         android:layout_marginTop="25dp"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/ic_message_like"
         android:drawableRight="@drawable/ic_chevron_right_black_24dp"
         android:text=" 赞" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/tv_at"
         style="@style/ItemTextStyle"
         android:layout_marginTop="25dp"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/ic_message_at"
         android:drawableRight="@drawable/ic_chevron_right_black_24dp"
         android:text=" @我的" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/tv_comment"
         style="@style/ItemTextStyle"
         android:layout_marginTop="25dp"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/ic_message_comment"
         android:drawableRight="@drawable/ic_chevron_right_black_24dp"
         android:text=" 评论" />
 
@@ -43,7 +43,7 @@
         android:id="@+id/tv_system_message"
         style="@style/ItemTextStyle"
         android:layout_marginTop="25dp"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/ic_message_system"
         android:drawableRight="@drawable/ic_chevron_right_black_24dp"
         android:text=" 系统消息" />
 

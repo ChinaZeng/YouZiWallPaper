@@ -21,7 +21,7 @@
             android:id="@+id/iv_header"
             android:layout_width="41dp"
             android:layout_height="41dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_header_def" />
 
         <View
             android:layout_width="0dp"
@@ -52,7 +52,7 @@
             android:id="@+id/iv_search"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_search" />
 
 
     </LinearLayout>

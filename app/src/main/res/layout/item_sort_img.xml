@@ -2,6 +2,7 @@
 <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/iv_img"
     android:scaleType="fitXY"
+    android:src="@mipmap/img_sort_def"
     android:layout_width="100dp"
     android:layout_height="133dp">
 

@@ -3,38 +3,39 @@ package com.youzi.youziwallpaper.app.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Toast;
 
 import com.youzi.framework.base.BaseMvpActivity;
-import com.youzi.framework.common.util.log.LogUtil;
 import com.youzi.framework.common.util.login.LoginManager;
 import com.youzi.framework.common.util.systembar.BarCompat;
+import com.youzi.player.YouZiPlayerView;
+import com.youzi.player.listener.VideoListener;
 import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.VideoDetailActivityContract;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
 
+import java.io.IOException;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityContract.Presenter>
-        implements VideoDetailActivityContract.View, MediaPlayer.OnErrorListener {
+        implements VideoDetailActivityContract.View,
+        VideoListener {
 
     private static final String BEAN_KEY = "bean_key";
-    @BindView(R.id.video_view)
-    VideoView videoView;
+    @BindView(R.id.player_view)
+    YouZiPlayerView videoPlayer;
     @BindView(R.id.iv_header)
     CircleImageView ivHeader;
     @BindView(R.id.iv_follow)
@@ -69,8 +70,6 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
     LinearLayout llDownCount;
 
 
-    private MediaController mMediaController;
-
     public static void open(Context context, ThemeBean bean) {
         Intent intent = new Intent(context, VideoDetailActivity.class);
         intent.putExtra(BEAN_KEY, bean);
@@ -95,8 +94,7 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
         //设置内容区域的对照关系，让内容区域不要让显示在toolbar下方
         setToolbarOverFlowStyle(true);
 
-        mThemeBean = (ThemeBean) getIntent().getSerializableExtra(BEAN_KEY);
-
+//        mThemeBean = (ThemeBean) getIntent().getSerializableExtra(BEAN_KEY);
 
         initData();
     }
@@ -104,27 +102,37 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
 
     private void initData() {
 
-        ThemeBean.DetailBean detailBean = mThemeBean.getDetail();
-        if (detailBean == null) return;
-
-        if (!TextUtils.isEmpty(detailBean.getVideoUrl())) {
-            mMediaController = new MediaController(getContext());
-//            videoView.setVideoPath(detailBean.getVideoUrl());
-            // TODO: 2019/5/12 地址问题
-            videoView.setVideoPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
-            videoView.setMediaController(mMediaController);
-            videoView.setOnErrorListener(this);
-            videoView.seekTo(0);
-            videoView.requestFocus();
-            videoView.start();
+        videoPlayer.setVideoListener(this);
+//            videoPlayer.setPath("http://ipfs.ztgame.com.cn/QmRRGU4aUZEqJsHxKzBb1ns97GHw45eCRRZFe6Eu8GCmZ4.m3u8");
+        videoPlayer.setPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
+        try {
+            videoPlayer.load();
+        } catch (IOException e) {
+            Toast.makeText(this,"播放失败",Toast.LENGTH_SHORT);
+            e.printStackTrace();
         }
-
-        tvVideoDes.setText(detailBean.getContent());
-        tvDownNum.setText(detailBean.getThemeDownloadNumber());
-        tvCollectNum.setText(detailBean.getCollectNum());
-        tvHuati.setText("@" + mThemeBean.getSpecies());
-        ///TODO: 2019/5/12  头像  是否关注
-
+//
+//        ThemeBean.DetailBean detailBean = mThemeBean.getDetail();
+//        if (detailBean == null) return;
+//
+//        if (!TextUtils.isEmpty(detailBean.getVideoUrl())) {
+//
+//            videoPlayer.setVideoListener(this);
+////            videoPlayer.setPath("http://ipfs.ztgame.com.cn/QmRRGU4aUZEqJsHxKzBb1ns97GHw45eCRRZFe6Eu8GCmZ4.m3u8");
+//            videoPlayer.setPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
+//            try {
+//                videoPlayer.load();
+//            } catch (IOException e) {
+//                Toast.makeText(this,"播放失败",Toast.LENGTH_SHORT);
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        tvVideoDes.setText(detailBean.getContent());
+//        tvDownNum.setText(detailBean.getThemeDownloadNumber());
+//        tvCollectNum.setText(detailBean.getCollectNum());
+//        tvHuati.setText("@" + mThemeBean.getSpecies());
+//        ///TODO: 2019/5/12  头像  是否关注
 
     }
 
@@ -139,28 +147,6 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
     protected View provideLayoutView() {
         return inflate(R.layout.activity_video_detail);
     }
-
-    @Override
-    public boolean onError(MediaPlayer mp, int what, int extra) {
-        LogUtil.d("errorCode=%d,extra=%d", what, extra);
-        return false;
-    }
-
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        if(videoView.isPlaying()){
-//            videoView.pause();
-//        }
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if(videoView.canPause())
-//        videoView.resume();
-//    }
 
 
     @OnClick({R.id.iv_follow, R.id.ll_collect, R.id.ll_down_count, R.id.ll_share, R.id.tv_huati})
@@ -209,5 +195,41 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
     public void collectionSuccess() {
         // TODO: 2019/5/12 ui变化
         provideToast().showSuccess("收藏成功");
+    }
+
+
+    @Override
+    public void onBufferingUpdate(IMediaPlayer iMediaPlayer, int i) {
+
+    }
+
+    @Override
+    public void onCompletion(IMediaPlayer iMediaPlayer) {
+
+    }
+
+    @Override
+    public boolean onError(IMediaPlayer iMediaPlayer, int i, int i1) {
+        return false;
+    }
+
+    @Override
+    public boolean onInfo(IMediaPlayer iMediaPlayer, int i, int i1) {
+        return false;
+    }
+
+    @Override
+    public void onPrepared(IMediaPlayer iMediaPlayer) {
+        videoPlayer.start();
+    }
+
+    @Override
+    public void onSeekComplete(IMediaPlayer iMediaPlayer) {
+
+    }
+
+    @Override
+    public void onVideoSizeChanged(IMediaPlayer iMediaPlayer, int i, int i1, int i2, int i3) {
+
     }
 }

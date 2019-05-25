@@ -109,6 +109,7 @@ ext {
 
             //modules
             services               : project(":services"),
+            player               : project(":player"),
             common                : project(":youzi:common"),
             uiimpl01              : project(":youzi:uiimpl01"),
             base                  : project(":youzi:baselibrary")

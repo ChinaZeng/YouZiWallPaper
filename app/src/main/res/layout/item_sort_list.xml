@@ -23,7 +23,7 @@
         android:layout_height="84dp"
         android:layout_marginLeft="14dp"
         android:layout_toRightOf="@+id/tv_num"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/img_sort_ranking_def" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_marginTop="9dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_oval_gray_header_def" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -57,6 +57,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tv_name"
             android:text="500000"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/ic_hot"
             android:textColor="#FA742B" />
 
 

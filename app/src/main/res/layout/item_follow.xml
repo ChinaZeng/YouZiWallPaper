@@ -72,36 +72,54 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tv_like"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:drawableLeft="@mipmap/ic_like"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:text="100"
             android:textColor="@android:color/white"
             android:textSize="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tv_down"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:drawableLeft="@mipmap/ic_comment"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:text="100"
+
             android:textColor="@android:color/white"
             android:textSize="15dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tv_collect"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:drawableLeft="@mipmap/ic_share"
+            android:drawablePadding="3dp"
             android:gravity="center"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
@@ -109,6 +127,10 @@
             android:textColor="@android:color/white"
             android:textSize="15dp" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -119,7 +141,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/img_radius_rectangle"
         app:layout_constraintBottom_toTopOf="@+id/ll_bottom"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
