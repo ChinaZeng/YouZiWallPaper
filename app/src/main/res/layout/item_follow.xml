@@ -13,7 +13,7 @@
         android:id="@+id/iv_header"
         android:layout_width="34dp"
         android:layout_height="34dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_header_def" />
 
 
     <TextView

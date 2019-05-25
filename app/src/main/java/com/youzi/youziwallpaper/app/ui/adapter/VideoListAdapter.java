@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
+import com.youzi.youziwallpaper.image.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -43,9 +44,8 @@ public class VideoListAdapter extends BaseQuickAdapter<ThemeBean, BaseViewHolder
         ThemeBean.DetailBean detailBean = item.getDetail();
         if (detailBean != null && detailBean.getImgList() != null
                 && detailBean.getImgList().size() > 0) {
-            Glide.with(helper.itemView.getContext())
-                    .load(detailBean.getImgList().get(0).getImg_url())
-                    .into(helper.<ImageView>getView(R.id.iv_video));
+            ImageLoader.load(detailBean.getImgList().get(0).getImg_url(),
+                    R.mipmap.img_radius_rectangle, helper.getView(R.id.iv_video));
         }
         // TODO: 2019/5/7 头像字段  话题字段缺失
 

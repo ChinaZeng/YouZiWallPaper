@@ -9,10 +9,12 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpFragment;
 import com.youzi.framework.base.BaseMvpRefreshFragment;
+import com.youzi.framework.common.util.login.LoginManager;
 import com.youzi.framework.common.util.login.event.LoginEvent;
 import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.FollowFragmentContract;
+import com.youzi.youziwallpaper.app.ui.activities.LoginActivity;
 import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
 import com.youzi.youziwallpaper.app.ui.adapter.FollowAdapter;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
@@ -31,6 +33,10 @@ public class FollowFragment extends
         implements FollowFragmentContract.View, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recy)
     RecyclerView recy;
+    @BindView(R.id.root_no_login)
+    View NoLogin;
+    @BindView(R.id.bt_click)
+    View btClick;
     private FollowAdapter adapter;
     int page = 1;
 
@@ -52,25 +58,48 @@ public class FollowFragment extends
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (LoginManager.getInstance().isLogin()) {
+            initLogin();
+        } else {
+            initNoLogin();
+        }
+    }
+
+    private void initNoLogin() {
+        NoLogin.setVisibility(View.VISIBLE);
+        recy.setVisibility(View.GONE);
+        provideRefreshLayout().setRefreshEnable(false);
+        btClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity.open(getContext(), getClass().getName());
+            }
+        });
+    }
+
+
+    private void initLogin() {
+        NoLogin.setVisibility(View.GONE);
+        recy.setVisibility(View.VISIBLE);
         recy.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new FollowAdapter();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ThemeBean bean = (ThemeBean) adapter.getData().get(position);
-                VideoDetailActivity.open(getContext(),bean);
+                VideoDetailActivity.open(getContext(), bean);
             }
         });
         recy.setAdapter(adapter);
         adapter.setEnableLoadMore(true);
         adapter.setOnLoadMoreListener(this, recy);
+        provideRefreshLayout().setRefreshEnable(true);
         provideRefreshLayout().startRefresh();
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void login(LoginEvent event) {
-        provideRefreshLayout().startRefresh();
+        initLogin();
     }
 
     @Override
@@ -82,7 +111,7 @@ public class FollowFragment extends
 
 
     @Override
-    public void showList(int total,int page, List<ThemeBean> list) {
+    public void showList(int total, int page, List<ThemeBean> list) {
         if (page == 1) {
             adapter.replaceData(list);
         } else {
@@ -91,7 +120,7 @@ public class FollowFragment extends
 
         provideRefreshLayout().refreshCompleted();
         adapter.loadMoreComplete();
-        if(total<=adapter.getData().size()){
+        if (total <= adapter.getData().size()) {
             adapter.loadMoreEnd(true);
         }
 

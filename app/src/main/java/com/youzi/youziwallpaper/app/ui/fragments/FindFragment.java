@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.youzi.framework.base.BaseMvpFragment;
 import com.youzi.framework.common.util.login.LoginManager;
@@ -18,6 +17,7 @@ import com.youzi.youziwallpaper.app.bean.UserInfoBean;
 import com.youzi.youziwallpaper.app.mvp.contracts.FindFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.LoginActivity;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
+import com.youzi.youziwallpaper.image.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -76,7 +76,7 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_header:
-                LoginActivity.open(getContext(),getClass().getName());
+                LoginActivity.open(getContext(), getClass().getName());
                 break;
             case R.id.iv_search:
                 break;
@@ -88,17 +88,16 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
         showInfo();
     }
 
-    void showInfo(){
+    void showInfo() {
 
-        if(!LoginManager.getInstance().isLogin()){
+        if (!LoginManager.getInstance().isLogin()) {
             return;
         }
 
         UserInfoBean loginResult = LoginManager.getInstance().getLastLoginResult();
-        if (loginResult != null )
-            Glide.with(this)
-                    .load(loginResult.headerUrl)
-                    .into(ivHeader);
+        if (loginResult != null)
+            ImageLoader.load(loginResult.headerUrl,
+                    R.mipmap.ic_header_def, ivHeader);
     }
 
 

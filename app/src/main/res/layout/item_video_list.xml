@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:scaleType="fitXY"
-            tools:src="@mipmap/ic_launcher" />
+            tools:src="@mipmap/img_radius_rectangle" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_header"

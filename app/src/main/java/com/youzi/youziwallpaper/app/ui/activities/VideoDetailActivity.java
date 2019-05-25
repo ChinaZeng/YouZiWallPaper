@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -93,46 +94,34 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
         setToolbarFitSystemWindowPadding(true);
         //设置内容区域的对照关系，让内容区域不要让显示在toolbar下方
         setToolbarOverFlowStyle(true);
-
-//        mThemeBean = (ThemeBean) getIntent().getSerializableExtra(BEAN_KEY);
-
+        mThemeBean = (ThemeBean) getIntent().getSerializableExtra(BEAN_KEY);
         initData();
     }
 
 
     private void initData() {
 
-        videoPlayer.setVideoListener(this);
-//            videoPlayer.setPath("http://ipfs.ztgame.com.cn/QmRRGU4aUZEqJsHxKzBb1ns97GHw45eCRRZFe6Eu8GCmZ4.m3u8");
-        videoPlayer.setPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
-        try {
-            videoPlayer.load();
-        } catch (IOException e) {
-            Toast.makeText(this,"播放失败",Toast.LENGTH_SHORT);
-            e.printStackTrace();
-        }
-//
-//        ThemeBean.DetailBean detailBean = mThemeBean.getDetail();
-//        if (detailBean == null) return;
-//
-//        if (!TextUtils.isEmpty(detailBean.getVideoUrl())) {
-//
-//            videoPlayer.setVideoListener(this);
-////            videoPlayer.setPath("http://ipfs.ztgame.com.cn/QmRRGU4aUZEqJsHxKzBb1ns97GHw45eCRRZFe6Eu8GCmZ4.m3u8");
+        ThemeBean.DetailBean detailBean = mThemeBean.getDetail();
+        if (detailBean == null) return;
+
+        if (!TextUtils.isEmpty(detailBean.getVideoUrl())) {
+
+            videoPlayer.setVideoListener(this);
 //            videoPlayer.setPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
-//            try {
-//                videoPlayer.load();
-//            } catch (IOException e) {
-//                Toast.makeText(this,"播放失败",Toast.LENGTH_SHORT);
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        tvVideoDes.setText(detailBean.getContent());
-//        tvDownNum.setText(detailBean.getThemeDownloadNumber());
-//        tvCollectNum.setText(detailBean.getCollectNum());
-//        tvHuati.setText("@" + mThemeBean.getSpecies());
-//        ///TODO: 2019/5/12  头像  是否关注
+            videoPlayer.setPath(detailBean.getVideoUrl());
+            try {
+                videoPlayer.load();
+            } catch (IOException e) {
+                provideToast().showError("播放失败");
+                e.printStackTrace();
+            }
+        }
+
+        tvVideoDes.setText(detailBean.getContent());
+        tvDownNum.setText(detailBean.getThemeDownloadNumber());
+        tvCollectNum.setText(detailBean.getCollectNum());
+        tvHuati.setText("@" + mThemeBean.getSpecies());
+        ///TODO: 2019/5/12  头像  是否关注
 
     }
 

@@ -4,6 +4,7 @@ import com.youzi.framework.base.mvp.BasePresenter;
 import com.youzi.framework.common.util.login.LoginManager;
 import com.youzi.service.api.RespObserver;
 import com.youzi.service.api.apis.ClientApi;
+import com.youzi.service.api.transformers.ResponseObjectTransformer;
 import com.youzi.service.api.transformers.ResponseTransformer;
 import com.youzi.youziwallpaper.app.bean.UserInfoBean;
 import com.youzi.youziwallpaper.app.mvp.contracts.VideoDetailActivityContract;
@@ -25,7 +26,7 @@ public class VideoDetailActivityPresenter extends BasePresenter<VideoDetailActiv
         UserInfoBean userInfoBean = LoginManager.getInstance().getLastLoginResult();
         mClientApi.insertDataFollow(userInfoBean.token, home_theme_id)
                 .compose(mView.newDialogLoadingTransformer())
-                .compose(ResponseTransformer.create())
+                .compose(ResponseObjectTransformer.create())
                 .subscribe(new RespObserver<Object>() {
                     @Override
                     public void onSuccess(Object o) {
@@ -41,7 +42,7 @@ public class VideoDetailActivityPresenter extends BasePresenter<VideoDetailActiv
         UserInfoBean userInfoBean = LoginManager.getInstance().getLastLoginResult();
         mClientApi.insertDataCollection(userInfoBean.token, home_theme_id)
                 .compose(mView.newDialogLoadingTransformer())
-                .compose(ResponseTransformer.create())
+                .compose(ResponseObjectTransformer.create())
                 .subscribe(new RespObserver<Object>() {
                     @Override
                     public void onSuccess(Object o) {

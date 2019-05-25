@@ -14,6 +14,7 @@ import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.ui.activities.VideoDetailActivity;
 import com.youzi.youziwallpaper.app.ui.adapter.ItemDecoration.LinearLayoutItemDecoration;
+import com.youzi.youziwallpaper.image.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -71,9 +72,8 @@ public class SortAdapter extends BaseQuickAdapter<SortBean, BaseViewHolder> {
             ThemeBean.DetailBean detailBean = item.getDetail();
             if (detailBean != null && detailBean.getImgList() != null
                     && detailBean.getImgList().size() > 0) {
-                Glide.with(helper.itemView.getContext())
-                        .load(detailBean.getImgList().get(0).getImg_url())
-                        .into(helper.<ImageView>getView(R.id.iv_img));
+                ImageLoader.load(detailBean.getImgList().get(0).getImg_url()
+                        , R.mipmap.img_sort_def, helper.getView(R.id.iv_img));
             }
 
         }
