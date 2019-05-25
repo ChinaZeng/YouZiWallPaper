@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.youzi.framework.base.BaseMvpActivity;
 import com.youzi.framework.common.util.login.LoginManager;

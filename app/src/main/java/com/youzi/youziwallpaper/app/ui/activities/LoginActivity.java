@@ -77,18 +77,17 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
                 mTencent.login(this, "all", qqLoginListener);
                 break;
             case R.id.iv_wx:
-                toMain();
+                loginOk();
                 break;
             case R.id.iv_wb:
-                toMain();
+                loginOk();
                 break;
         }
     }
 
 
     @Override
-    public void toMain() {
-        startActivity(MainActivity.class);
+    public void loginOk() {
         finishPage();
     }
 

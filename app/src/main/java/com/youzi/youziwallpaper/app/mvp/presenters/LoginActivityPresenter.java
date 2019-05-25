@@ -103,7 +103,7 @@ public class LoginActivityPresenter extends BasePresenter<LoginActivityContract.
                         userInfoBean.loginType = UserInfoBean.LoginType.parserType(type);
                         LoginManager.getInstance().signIn(userInfoBean);
 
-                        mView.toMain();
+                        mView.loginOk();
                     }
                 });
     }

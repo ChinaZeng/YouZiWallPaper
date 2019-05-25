@@ -5,18 +5,14 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.flyco.tablayout.SlidingTabLayout;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.youzi.framework.base.BaseMvpActivity;
 import com.youzi.framework.common.util.login.event.LoginEvent;
 import com.youzi.framework.common.util.utils.FragmentHelper;
-import com.youzi.framework.common.util.utils.FragmentSwitchUtil;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.MainActivityContract;
-import com.youzi.youziwallpaper.app.ui.fragments.AdFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.FindFragment;
 import com.youzi.youziwallpaper.app.ui.fragments.SortFragment;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;

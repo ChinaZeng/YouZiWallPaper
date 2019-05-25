@@ -6,7 +6,7 @@ import com.youzi.framework.base.mvp.IBaseView;
 
 public interface LoginActivityContract {
     interface View extends IBaseView {
-        void toMain();
+        void loginOk();
     }
 
     interface Presenter extends IBasePresenter<View> {
