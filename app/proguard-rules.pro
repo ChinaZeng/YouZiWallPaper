@@ -401,3 +401,8 @@
 -keep class net.sourceforge.zbar.** { *; }
 -keep interface net.sourceforge.zbar.** { *; }
 -dontwarn net.sourceforge.zbar.**
+
+
+
+#ijkplayer
+-keep class tv.danmaku.ijk.media.** {*;}

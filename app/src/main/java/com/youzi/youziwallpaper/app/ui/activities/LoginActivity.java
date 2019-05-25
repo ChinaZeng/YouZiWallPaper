@@ -72,7 +72,7 @@ public class LoginActivity extends BaseMvpActivity<LoginActivityContract.Present
         switch (view.getId()) {
             case R.id.iv_qq:
                 if (mTencent == null)
-                    mTencent = Tencent.createInstance("101573968", this);
+                    mTencent = Tencent.createInstance("1106120807", this);
 
                 mTencent.login(this, "all", qqLoginListener);
                 break;
