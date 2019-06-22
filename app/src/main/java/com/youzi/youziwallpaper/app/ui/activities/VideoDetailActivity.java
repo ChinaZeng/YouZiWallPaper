@@ -104,7 +104,7 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
         if (detailBean == null) return;
 
         if (!TextUtils.isEmpty(detailBean.getVideoUrl())) {
-
+            videoPlayer.reset();
             videoPlayer.setVideoListener(this);
 //            videoPlayer.setPath("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
             videoPlayer.setPath(detailBean.getVideoUrl());
@@ -185,6 +185,25 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
         provideToast().showSuccess("收藏成功");
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    protected void onPause() {
+        videoPlayer.pause();
+        super.onPause();
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        videoPlayer.release();
+    }
 
     @Override
     public void onBufferingUpdate(IMediaPlayer iMediaPlayer, int i) {

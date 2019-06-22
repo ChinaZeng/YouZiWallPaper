@@ -1,6 +1,5 @@
 package com.youzi.youziwallpaper.image;
 
-import android.support.annotation.IdRes;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
