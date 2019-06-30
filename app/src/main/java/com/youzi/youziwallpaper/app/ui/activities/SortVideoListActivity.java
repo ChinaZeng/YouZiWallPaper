@@ -22,11 +22,14 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListActivityContract.Presenter> implements SortVideoListActivityContract.View {
+public class SortVideoListActivity extends
+        BaseMvpRefreshActivity<SortVideoListActivityContract.Presenter>
+        implements SortVideoListActivityContract.View, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recy)
     RecyclerView recy;
 
     private SortVideoListAdapter adapter;
+    private int nowPage = 1;
 
     private String mSortName;
     private static final String NAME_KEY = "NAME_KEY";
@@ -68,6 +71,8 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
             }
         });
         recy.setAdapter(adapter);
+        adapter.setEnableLoadMore(true);
+        adapter.setOnLoadMoreListener(this, recy);
         recy.addItemDecoration(new LinearLayoutItemDecoration((int)
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         1.0f, getResources().getDisplayMetrics()
@@ -80,19 +85,40 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
     }
 
     @Override
-    public void showList(List<ThemeBean> list) {
-        adapter.replaceData(list);
+    public void showList(List<ThemeBean> list, int page) {
+        if (page == 1) {
+            adapter.replaceData(list);
+        } else {
+            adapter.getData().addAll(list);
+            adapter.notifyDataSetChanged();
+        }
+
+        if (list.isEmpty()) {
+            adapter.loadMoreEnd();
+        } else {
+            adapter.loadMoreComplete();
+        }
+
         provideRefreshLayout().refreshCompleted();
+
     }
 
     @Override
     public void showError() {
         provideRefreshLayout().refreshCompleted();
+        adapter.loadMoreComplete();
     }
 
     @Override
     public void onRefresh() {
         super.onRefresh();
-        mPresenter.getData(mSortName);
+        nowPage = 1;
+        mPresenter.getData(mSortName, nowPage);
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        nowPage++;
+        mPresenter.getData(mSortName, nowPage);
     }
 }

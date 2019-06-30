@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface SortVideoListActivityContract {
     interface View extends IBaseView {
-        void showList(List<ThemeBean> list);
+        void showList(List<ThemeBean> list,int page);
         void showError();
     }
 
     interface Presenter extends IBasePresenter<View> {
 
-        void  getData(String sortName);
+        void  getData(String sortName,int nowPage);
     }
 }

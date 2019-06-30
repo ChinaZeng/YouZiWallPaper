@@ -28,7 +28,17 @@ public interface ClientApi {
 
 
     @GET("app/bac_/getPageHomeThemeLst")
-    Observable<Resp<ListResp<ThemeBean>>> getPageHomeThemeLst();
+    Observable<Resp<ListResp<ThemeBean>>> getPageHomeThemeLst(
+            @Query("showCount") int showCount,
+            @Query("currentPage") int currentPage,
+            @Query("token") String token,
+            //分类名称
+            @Query("species") String species,
+            //主题名称
+            @Query("theme_name") String theme_name,
+            //主题标题
+            @Query("theme_title") String theme_title
+    );
 
     @GET("/app/bac_/getPageFollowLst")
     Observable<Resp<ListResp<ThemeBean>>> getPageFollowLst(

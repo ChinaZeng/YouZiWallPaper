@@ -21,7 +21,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class RecommendFragment extends BaseMvpRefreshFragment<RecommendFragmentContract.Presenter> implements RecommendFragmentContract.View {
+public class RecommendFragment extends
+        BaseMvpRefreshFragment<RecommendFragmentContract.Presenter>
+        implements RecommendFragmentContract.View, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recy)
     RecyclerView recy;
 
@@ -32,6 +34,8 @@ public class RecommendFragment extends BaseMvpRefreshFragment<RecommendFragmentC
 
 
     private VideoListAdapter adapter;
+
+    private int nowPage = 1;
 
     @Override
     protected void daggerInject() {
@@ -49,11 +53,13 @@ public class RecommendFragment extends BaseMvpRefreshFragment<RecommendFragmentC
         recy.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         adapter = new VideoListAdapter();
+        adapter.setEnableLoadMore(true);
+        adapter.setOnLoadMoreListener(this, recy);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ThemeBean bean = (ThemeBean) adapter.getData().get(position);
-                VideoDetailActivity.open(getContext(),bean);
+                VideoDetailActivity.open(getContext(), bean);
             }
         });
         recy.setAdapter(adapter);
@@ -67,19 +73,37 @@ public class RecommendFragment extends BaseMvpRefreshFragment<RecommendFragmentC
 
 
     @Override
-    public void showList(List<ThemeBean> list) {
-        adapter.replaceData(list);
+    public void showList(List<ThemeBean> list, int page) {
+        if (page == 1) {
+            adapter.replaceData(list);
+        } else {
+            adapter.getData().addAll(list);
+            adapter.notifyDataSetChanged();
+        }
+        if (list.isEmpty()) {
+            adapter.loadMoreEnd();
+        } else {
+            adapter.loadMoreComplete();
+        }
         provideRefreshLayout().refreshCompleted();
     }
 
     @Override
     public void showError() {
         provideRefreshLayout().refreshCompleted();
+        adapter.loadMoreComplete();
     }
 
     @Override
     public void onRefresh() {
         super.onRefresh();
-        mPresenter.getData();
+        nowPage = 1;
+        mPresenter.getData(nowPage);
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        nowPage++;
+        mPresenter.getData(nowPage);
     }
 }

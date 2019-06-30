@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface RecommendFragmentContract {
     interface View extends IBaseView {
-        void showList(List<ThemeBean> list);
+        void showList(List<ThemeBean> list,int page);
         void showError();
     }
 
     interface Presenter extends IBasePresenter<View> {
-        void getData();
+        void getData(int nowPage);
     }
 }
