@@ -50,11 +50,9 @@ public class SortFragment extends
         super.onViewCreated(view, savedInstanceState);
         recy.setLayoutManager(new LinearLayoutManager(getContext()));
         sortAdapter = new SortAdapter();
-        sortAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(SortVideoListActivity.class);
-            }
+        sortAdapter.setOnItemClickListener((adapter, view1, position) -> {
+            SortBean bean= sortAdapter.getData().get(position);
+            SortVideoListActivity.open(getContext(),bean.label);
         });
         recy.setAdapter(sortAdapter);
 

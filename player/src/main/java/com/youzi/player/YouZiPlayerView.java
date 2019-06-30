@@ -43,6 +43,7 @@ public class YouZiPlayerView extends FrameLayout {
 
     private Context mContext;
     private boolean mEnableMediaCodec = true;
+    private boolean mLooping = true;
 
     private VideoListener mListener;
     private AudioManager mAudioManager;
@@ -153,6 +154,9 @@ public class YouZiPlayerView extends FrameLayout {
         mHeader = header;
     }
 
+    public void setLoop(boolean isLoop){
+        mLooping = isLoop;
+    }
     //开始加载视频
     public void load() throws IOException {
         if(mMediaPlayer != null){
@@ -160,6 +164,7 @@ public class YouZiPlayerView extends FrameLayout {
             mMediaPlayer.release();
         }
         mMediaPlayer = createPlayer();
+        mMediaPlayer.setLooping(mLooping);
         setListener(mMediaPlayer);
         mMediaPlayer.setDisplay(mSurfaceView.getHolder());
         mMediaPlayer.setDataSource(mContext, Uri.parse(mPath),mHeader);
@@ -182,6 +187,7 @@ public class YouZiPlayerView extends FrameLayout {
             mAudioFocusHelper.abandonFocus();
         }
     }
+
 
     public void pause() {
         if (mMediaPlayer != null) {

@@ -175,13 +175,30 @@ public class ThemeBean implements Serializable {
          */
 
         private String followNum;
+        private String collectNum;
         private String videoUrl;
         private String species;
-        private String collectNum;
         private String themeDownloadNumber;
         private String content;
+        private int isFollow;
+        private int isCollect;
         private List<ImgListBean> imgList;
 
+        public int getIsFollow() {
+            return isFollow;
+        }
+
+        public void setIsFollow(int isFollow) {
+            this.isFollow = isFollow;
+        }
+
+        public int getIsCollect() {
+            return isCollect;
+        }
+
+        public void setIsCollect(int isCollect) {
+            this.isCollect = isCollect;
+        }
 
         public String getSpecies() {
             return species;

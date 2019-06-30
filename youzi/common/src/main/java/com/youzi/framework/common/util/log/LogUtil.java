@@ -16,4 +16,10 @@ public class LogUtil {
             Log.d(TAG, String.format(format, args));
         }
     }
+
+    public static void e (String format, Object... args) {
+        if (isDebug) {
+            Log.e(TAG, String.format(format, args));
+        }
+    }
 }

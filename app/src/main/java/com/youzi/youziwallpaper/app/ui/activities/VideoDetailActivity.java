@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.youzi.framework.base.BaseMvpActivity;
+import com.youzi.framework.common.util.log.LogUtil;
 import com.youzi.framework.common.util.login.LoginManager;
 import com.youzi.framework.common.util.systembar.BarCompat;
 import com.youzi.player.YouZiPlayerView;
@@ -120,7 +122,15 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
         tvDownNum.setText(detailBean.getThemeDownloadNumber());
         tvCollectNum.setText(detailBean.getCollectNum());
         tvHuati.setText("@" + mThemeBean.getSpecies());
-        ///TODO: 2019/5/12  头像  是否关注
+
+        if(mThemeBean.getDetail().getIsFollow()==1){
+            ivFollow.setVisibility(View.GONE);
+        }
+
+        // TODO: 2019/6/30 是否收藏 下载量图标
+        if(mThemeBean.getDetail().getIsCollect()==1){
+
+        }
 
     }
 
@@ -175,8 +185,8 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
 
     @Override
     public void followSuccess() {
-        // TODO: 2019/5/12 ui变化
         provideToast().showSuccess("关注成功");
+        ivFollow.setVisibility(View.GONE);
     }
 
     @Override
@@ -207,36 +217,43 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailActivityCont
 
     @Override
     public void onBufferingUpdate(IMediaPlayer iMediaPlayer, int i) {
-
+        LogUtil.e("onBufferingUpdate");
     }
 
     @Override
     public void onCompletion(IMediaPlayer iMediaPlayer) {
-
+        LogUtil.e("onCompletion");
+        initData();
     }
 
     @Override
     public boolean onError(IMediaPlayer iMediaPlayer, int i, int i1) {
+        LogUtil.e("onError");
         return false;
     }
 
     @Override
     public boolean onInfo(IMediaPlayer iMediaPlayer, int i, int i1) {
+        LogUtil.e("onInfo");
+
         return false;
     }
 
     @Override
     public void onPrepared(IMediaPlayer iMediaPlayer) {
+        LogUtil.e("onPrepared");
         videoPlayer.start();
     }
 
     @Override
     public void onSeekComplete(IMediaPlayer iMediaPlayer) {
+        LogUtil.e("onSeekComplete");
 
     }
 
     @Override
     public void onVideoSizeChanged(IMediaPlayer iMediaPlayer, int i, int i1, int i2, int i3) {
+        LogUtil.e("onVideoSizeChanged");
 
     }
 }

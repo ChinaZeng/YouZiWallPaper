@@ -1,5 +1,7 @@
 package com.youzi.youziwallpaper.app.ui.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,13 +11,13 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youzi.framework.base.BaseMvpRefreshActivity;
+import com.youzi.service.api.resp.ThemeBean;
 import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.mvp.contracts.SortVideoListActivityContract;
 import com.youzi.youziwallpaper.app.ui.adapter.ItemDecoration.LinearLayoutItemDecoration;
 import com.youzi.youziwallpaper.app.ui.adapter.SortVideoListAdapter;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,6 +27,16 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
     RecyclerView recy;
 
     private SortVideoListAdapter adapter;
+
+    private String mSortName;
+    private static final String NAME_KEY = "NAME_KEY";
+
+
+    public static void open(Context context, String bean) {
+        Intent intent = new Intent(context, SortVideoListActivity.class);
+        intent.putExtra(NAME_KEY, bean);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void daggerInject() {
@@ -41,8 +53,9 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        //todo 获取名称设置
-        setTitle("分类名称");
+        mSortName = getIntent().getStringExtra(NAME_KEY);
+
+        setTitle(mSortName);
 
         recy.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -50,7 +63,8 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                VideoDetailActivity.open(SortVideoListActivity.this);
+                VideoDetailActivity.open(SortVideoListActivity.this,
+                        (ThemeBean) adapter.getData().get(position));
             }
         });
         recy.setAdapter(adapter);
@@ -61,14 +75,24 @@ public class SortVideoListActivity extends BaseMvpRefreshActivity<SortVideoListA
                 , 0Xff414141
         ));
 
-        testData();
+
+        provideRefreshLayout().startRefresh();
     }
 
-    private void testData() {
-        List<String> test = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            test.add("nihao" + i);
-        }
-        adapter.replaceData(test);
+    @Override
+    public void showList(List<ThemeBean> list) {
+        adapter.replaceData(list);
+        provideRefreshLayout().refreshCompleted();
+    }
+
+    @Override
+    public void showError() {
+        provideRefreshLayout().refreshCompleted();
+    }
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        mPresenter.getData(mSortName);
     }
 }

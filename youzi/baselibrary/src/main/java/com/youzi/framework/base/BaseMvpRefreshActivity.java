@@ -12,7 +12,8 @@ import com.youzi.framework.common.ui.refresh.IRefreshLayout;
  * Created by LuoHaifeng on 2018/4/25 0025.
  * Email:496349136@qq.com
  */
-public abstract class BaseMvpRefreshActivity<P extends IBasePresenter> extends BaseMvpActivity<P> implements IBasePagingView {
+public abstract class BaseMvpRefreshActivity<P extends IBasePresenter> extends BaseMvpActivity<P> implements IBasePagingView,
+ IRefreshLayout.OnRefreshLoadMoreListener{
     SwipeRefreshLayout swipeRefreshLayout;
     IRefreshLayout refreshLayout;
 
@@ -25,6 +26,7 @@ public abstract class BaseMvpRefreshActivity<P extends IBasePresenter> extends B
             swipeRefreshLayout.addView(content);
         }
         refreshLayout = new AdapterToRefreshLayoutWrapper(swipeRefreshLayout);
+        refreshLayout.setRefreshLoadMoreListener(this);
         return view;
     }
 
@@ -33,5 +35,16 @@ public abstract class BaseMvpRefreshActivity<P extends IBasePresenter> extends B
     @Override
     public IRefreshLayout provideRefreshLayout() {
         return refreshLayout;
+    }
+
+
+    @Override
+    public void onRefresh() {
+
+    }
+
+    @Override
+    public void onLoadMore() {
+
     }
 }
