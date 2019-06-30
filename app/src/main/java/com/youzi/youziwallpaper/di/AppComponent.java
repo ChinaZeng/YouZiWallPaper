@@ -6,6 +6,7 @@ import com.youzi.youziwallpaper.app.ui.activities.EditPersonInfoActivity;
 import com.youzi.youziwallpaper.app.ui.activities.LoginActivity;
 import com.youzi.youziwallpaper.app.ui.activities.MainActivity;
 import com.youzi.youziwallpaper.app.ui.activities.MessageActivity;
+import com.youzi.youziwallpaper.app.ui.activities.SearchActivity;
 import com.youzi.youziwallpaper.app.ui.activities.SettingActivity;
 import com.youzi.youziwallpaper.app.ui.activities.SortVideoListActivity;
 import com.youzi.youziwallpaper.app.ui.activities.SplashActivity;
@@ -43,6 +44,8 @@ public interface AppComponent {
     void inject(SortVideoListActivity activity);
 
     void inject(VideoDetailActivity activity);
+
+    void inject(SearchActivity activity);
 
 
     //---------------------fragment-----------------------------

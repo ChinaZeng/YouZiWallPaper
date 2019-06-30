@@ -4,6 +4,7 @@ import com.youzi.youziwallpaper.app.mvp.contracts.EditPersonInfoActivityContract
 import com.youzi.youziwallpaper.app.mvp.contracts.LoginActivityContract;
 import com.youzi.youziwallpaper.app.mvp.contracts.MainActivityContract;
 import com.youzi.youziwallpaper.app.mvp.contracts.MessageActivityContract;
+import com.youzi.youziwallpaper.app.mvp.contracts.SearchActivityContract;
 import com.youzi.youziwallpaper.app.mvp.contracts.SettingActivityContract;
 import com.youzi.youziwallpaper.app.mvp.contracts.SortVideoListActivityContract;
 import com.youzi.youziwallpaper.app.mvp.contracts.SplashActivityContract;
@@ -12,6 +13,7 @@ import com.youzi.youziwallpaper.app.mvp.presenters.EditPersonInfoActivityPresent
 import com.youzi.youziwallpaper.app.mvp.presenters.LoginActivityPresenter;
 import com.youzi.youziwallpaper.app.mvp.presenters.MainActivityPresenter;
 import com.youzi.youziwallpaper.app.mvp.presenters.MessageActivityPresenter;
+import com.youzi.youziwallpaper.app.mvp.presenters.SearchActivityPresenter;
 import com.youzi.youziwallpaper.app.mvp.presenters.SettingActivityPresenter;
 import com.youzi.youziwallpaper.app.mvp.presenters.SortVideoListActivityPresenter;
 import com.youzi.youziwallpaper.app.mvp.presenters.SplashActivityPresenter;
@@ -69,6 +71,10 @@ public class ActivityModule {
         return presenterImpl;
     }
 
+    @Provides
+    public static SearchActivityContract.Presenter provideSearchActivityPresenter(SearchActivityPresenter presenterImpl) {
+        return presenterImpl;
+    }
 
 
 

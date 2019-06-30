@@ -16,6 +16,7 @@ import com.youzi.youziwallpaper.R;
 import com.youzi.youziwallpaper.app.bean.UserInfoBean;
 import com.youzi.youziwallpaper.app.mvp.contracts.FindFragmentContract;
 import com.youzi.youziwallpaper.app.ui.activities.LoginActivity;
+import com.youzi.youziwallpaper.app.ui.activities.SearchActivity;
 import com.youzi.youziwallpaper.di.DaggerAppComponent;
 import com.youzi.youziwallpaper.image.ImageLoader;
 
@@ -79,6 +80,7 @@ public class FindFragment extends BaseMvpFragment<FindFragmentContract.Presenter
                 LoginActivity.open(getContext(), getClass().getName());
                 break;
             case R.id.iv_search:
+                SearchActivity.open(getContext());
                 break;
         }
     }

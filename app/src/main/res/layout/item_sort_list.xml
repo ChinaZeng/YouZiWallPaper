@@ -18,6 +18,7 @@
         android:textSize="50dp" />
 
     <ImageView
+        android:scaleType="fitCenter"
         android:id="@+id/iv_logo"
         android:layout_width="84dp"
         android:layout_height="84dp"
